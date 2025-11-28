@@ -197,7 +197,7 @@ export default function Home() {
       </div>
 
       <div className="text-center text-gray-500 text-sm">
-        <p>Connect your wallet to play on Base Sepolia Testnet</p>
+        <p>Connect your wallet to play on Base network</p>
       </div>
     </main>
   );

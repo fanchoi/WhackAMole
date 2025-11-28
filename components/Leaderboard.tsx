@@ -1,11 +1,16 @@
 'use client';
 
 import { useState } from 'react';
-import { useReadContract } from 'wagmi';
+import { useReadContract, useAccount } from 'wagmi';
+import { base, baseSepolia } from 'wagmi/chains';
 import { WHACK_A_MOLE_ABI, CONTRACT_ADDRESS } from '../app/abi';
 
 export default function Leaderboard() {
   const [isOpen, setIsOpen] = useState(false);
+  const { chain } = useAccount();
+
+  const isTestnet = chain?.id === baseSepolia.id;
+  const networkName = isTestnet ? 'Base Sepolia Testnet' : 'Base Mainnet';
 
   const { data: rawScores, isLoading, isError } = useReadContract({
     address: CONTRACT_ADDRESS,
@@ -52,7 +57,7 @@ export default function Leaderboard() {
                 <div className="p-8 text-center text-gray-500">Loading...</div>
               ) : isError ? (
                 <div className="p-8 text-center text-red-500">
-                  Failed to load. Please ensure you are connected to Base Sepolia Testnet.
+                  Failed to load. Please ensure you are connected to {networkName}.
                 </div>
               ) : scores.length === 0 ? (
                 <div className="p-8 text-center text-gray-500">No data yet. Be the first!</div>
@@ -85,7 +90,7 @@ export default function Leaderboard() {
             </div>
             
             <div className="p-4 bg-gray-50 text-center text-xs text-gray-400 border-t border-gray-100">
-              Data loaded directly from Base Sepolia chain contract
+              Data loaded directly from {networkName} contract
             </div>
           </div>
         </div>
