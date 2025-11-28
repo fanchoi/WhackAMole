@@ -1,6 +1,5 @@
-import type { NextConfig } from "next";
-
-const nextConfig: NextConfig = {
+/** @type {import('next').NextConfig} */
+const nextConfig = {
   /* config options here */
   webpack: (config) => {
     config.resolve.fallback = {
@@ -15,7 +14,7 @@ const nextConfig: NextConfig = {
     config.externals.push("pino-pretty", "lokijs", "encoding");
     return config;
   },
-  // 忽略 TypeScript 构建错误，防止因 node_modules 中的类型问题导致构建失败
+  // 忽略 TypeScript 构建错误
   typescript: {
     ignoreBuildErrors: true,
   },
@@ -25,4 +24,5 @@ const nextConfig: NextConfig = {
   }
 };
 
-export default nextConfig;
+module.exports = nextConfig;
+
